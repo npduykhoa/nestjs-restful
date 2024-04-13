@@ -1,21 +1,41 @@
-### Các bước cần làm để chạy dự án NestJS
+# CRUD User Project
 
-#### 1. Cài đặt thư viện với câu lệnh: npm i
-#### 2. Chạy dự án với câu lệnh: npm run dev
+This is a CRUD (Create, Read, Update, Delete) User project built using the following technologies:
 
+- Back-end framework Nest.js version 9
+- Database NoSQL MongoDB running by Docker
+- Using Mongoose & Mongo Compass to query & connect database
 
-=================
+## Installation
 
-Tác giả: Hỏi Dân IT
+1. Clone the repository:
 
-Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
+```bash
+git clone https://github.com/npduykhoa/nestjs-restful
+```
 
-Website chính thức: https://hoidanit.com.vn/
+2. Install the dependencies:
 
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
+## IMPORTANT: using Node.js version 18
 
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
+```bash
+npm install
+```
 
-Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
+## Usage
 
-Udemy Hỏi Dân IT: https://www.udemy.com/user/eric-7039/
+1. Start the project:
+
+```bash
+npm run dev
+```
+
+2. Access the application in your browser at `http://localhost:${PORT}`.
+   \*\*Get port and some config in .env
+
+## Features
+
+- Create a new user
+- Read user details
+- Update user information
+- Delete a user
