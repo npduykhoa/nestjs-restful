@@ -1,8 +1,8 @@
 {
-  "name": "nest-basic-hoidanit",
+  "name": "nest-jobs-recruiments",
   "version": "0.0.1",
-  "description": "https://hoidanit.com.vn/",
-  "author": "Hỏi Dân IT",
+  "description": "https://npdk.dev/",
+  "author": "Khoa Nguyen",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
