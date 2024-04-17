@@ -134,4 +134,8 @@ export class UsersService {
     );
     return this.userModel.softDelete({ _id: id });
   }
+
+  updateUserToken = async (refresh_token: string, _id: string) => {
+    return await this.userModel.updateOne({ _id }, { refresh_token });
+  };
 }
