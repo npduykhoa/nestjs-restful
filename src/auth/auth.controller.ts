@@ -48,4 +48,13 @@ export class AuthController {
   async register(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
   }
+
+  @ResponseMessage('Logout successfully')
+  @Post('logout')
+  async handleLogout(
+    @Res({ passthrough: true }) response: Response,
+    @User() user: IUser,
+  ) {
+    return this.authService.logout(response, user);
+  }
 }
