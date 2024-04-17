@@ -13,7 +13,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { IUser } from 'src/users/users.interface';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -25,10 +27,12 @@ export class UsersController {
   }
 
   @Get()
+  @ApiParam({ name: 'qs', required: false })
   findAll(
     @Query('current') currentPage: string,
     @Query('pageSize') limit: string,
-    @Query('qs') qs: string,
+    @Query('qs')
+    qs: string,
   ) {
     return this.usersService.findAll(+currentPage, +limit, qs);
   }
