@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import ms from 'ms';
@@ -70,5 +70,53 @@ export class AuthService {
         ms(this.configService.get<string>('JWT_REFRESH_EXPIRES')) / 1000,
     });
     return refresh_token;
+  };
+
+  processNewToken = async (refresh_token: string, response: Response) => {
+    try {
+      const payload = this.jwtService.verify(refresh_token, {
+        secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+      });
+
+      const user = await this.usersService.findUserByRefreshToken(
+        refresh_token,
+      );
+
+      if (user) {
+        const { _id, name, email, role } = user;
+        const payload = {
+          sub: 'token refresh',
+          iss: 'from server',
+          _id,
+          name,
+          email,
+          role,
+        };
+
+        const refresh_token = this.createRefreshToken(payload);
+
+        //update user with refresh_token
+        await this.usersService.updateUserToken(refresh_token, _id.toString());
+
+        //set refresh_token to cookie
+        response.clearCookie('refresh_token');
+        response.cookie('refresh_token', refresh_token, {
+          httpOnly: true,
+          maxAge: ms(this.configService.get<string>('JWT_REFRESH_EXPIRES')), //milliseconds
+        });
+        return {
+          access_token: this.jwtService.sign(payload),
+          _id,
+          name,
+          email,
+          role,
+        };
+      } else {
+      }
+    } catch (error) {
+      throw new BadRequestException(
+        'Invalid refresh token, please login again!',
+      );
+    }
   };
 }
